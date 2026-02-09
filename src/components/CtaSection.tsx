@@ -17,18 +17,24 @@ const CtaSection = ({ whatsappUrl }: CtaSectionProps) => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          Vamos conversar sobre a sua empresa?
+          Vamos conversar sobre a realidade jurídica da sua empresa?
         </motion.h2>
-        <motion.p
-          className="text-muted-foreground font-body text-lg leading-relaxed mb-10"
+        <motion.div
+          className="space-y-4 mb-10"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Se você deseja entender qual plano jurídico faz mais sentido para sua empresa, 
-          nossa equipe está à disposição para esclarecer suas dúvidas.
-        </motion.p>
+          <p className="text-muted-foreground font-body text-lg leading-relaxed">
+            Se você deseja entender qual plano jurídico faz mais sentido para a sua empresa, 
+            nossa equipe está à disposição para esclarecer dúvidas e apresentar a melhor solução, 
+            de forma transparente e responsável.
+          </p>
+          <p className="text-xs text-gold/70 font-body font-semibold uppercase tracking-wider">
+            Atendimento exclusivo para empresas com CNPJ
+          </p>
+        </motion.div>
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}

@@ -54,17 +54,35 @@ const HeroSection = ({ whatsappUrl }: HeroSectionProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
         >
-          Assessoria Jurídica{" "}
-          <span className="text-gold-gradient">Empresarial</span>
+          Assessoria Jurídica Empresarial para decisões mais seguras e{" "}
+          <span className="text-gold-gradient">estratégicas</span>
         </motion.h1>
 
         <motion.p
-          className="text-lg md:text-xl text-primary-foreground/60 font-body font-light leading-relaxed mb-10 max-w-2xl mx-auto"
+          className="text-lg md:text-xl text-primary-foreground/60 font-body font-light leading-relaxed mb-4 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
         >
-          Planejamento jurídico para empresas que buscam segurança, estratégia e crescimento sustentável.
+          Planejamento jurídico contínuo para empresas que buscam segurança, organização e previsibilidade em suas decisões, com atendimento direto e especializado.
+        </motion.p>
+
+        <motion.p
+          className="text-sm text-primary-foreground/40 font-body leading-relaxed mb-4 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+        >
+          Em um ambiente empresarial cada vez mais complexo, contar com orientação jurídica adequada não é apenas uma necessidade — é um diferencial estratégico.
+        </motion.p>
+
+        <motion.p
+          className="text-xs text-gold/70 font-body font-semibold uppercase tracking-wider mb-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.45 }}
+        >
+          Atendimento exclusivo para empresas com CNPJ
         </motion.p>
 
         <motion.div

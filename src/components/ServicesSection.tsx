@@ -5,17 +5,20 @@ const services = [
   {
     icon: FileText,
     title: "Elaboração e Revisão de Contratos",
-    description: "Cível, Trabalhista e Relações de Consumo",
+    description:
+      "Procedimento técnico e minucioso na elaboração e revisão de contratos nas áreas Cível, Trabalhista e Relações de Consumo, visando segurança jurídica, equilíbrio contratual e estabilidade nas relações comerciais.",
   },
   {
     icon: Search,
     title: "Levantamento da Situação Tributária",
-    description: "Análise completa da saúde fiscal da sua empresa",
+    description:
+      "Análise da realidade tributária da empresa para identificar riscos, inconsistências e orientar a adoção das medidas mais adequadas, evitando passivos que possam comprometer o negócio.",
   },
   {
     icon: ShieldCheck,
     title: "Segurança Jurídica e Inovação",
-    description: "Proteção legal para crescer com confiança",
+    description:
+      "Atuação estratégica que alia segurança jurídica e inovação, criando uma base sólida para o crescimento sustentável da empresa.",
   },
 ];
 
@@ -32,16 +35,22 @@ const ServicesSection = () => {
         >
           Planejamento Jurídico <span className="text-gold-gradient">Empresarial</span>
         </motion.h2>
-        <motion.p
-          className="text-primary-foreground/60 font-body text-lg text-center max-w-2xl mx-auto mb-14"
+        <motion.div
+          className="text-primary-foreground/60 font-body text-lg text-center max-w-2xl mx-auto mb-14 space-y-3"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Transforme desafios em oportunidades e fortaleça sua empresa com orientação jurídica especializada. 
-          A jornada da sua empresa para um futuro sólido começa aqui.
-        </motion.p>
+          <p>
+            Transforme desafios em oportunidades e fortaleça a estrutura jurídica da sua empresa.
+          </p>
+          <p className="text-primary-foreground/40 text-base">
+            A jornada para um futuro empresarial sólido começa com decisões bem orientadas, 
+            prevenção de riscos e organização jurídica adequada. Nosso papel é caminhar ao lado 
+            da sua empresa, oferecendo orientação estratégica em cada etapa.
+          </p>
+        </motion.div>
         <div className="grid md:grid-cols-3 gap-8">
           {services.map(({ icon: Icon, title, description }, i) => (
             <motion.div
@@ -60,7 +69,7 @@ const ServicesSection = () => {
               >
                 <Icon className="w-6 h-6 text-gold" />
               </motion.div>
-              <h3 className="text-lg font-heading text-primary-foreground mb-2">{title}</h3>
+              <h3 className="text-lg font-heading text-primary-foreground mb-3">{title}</h3>
               <p className="text-primary-foreground/50 font-body text-sm leading-relaxed">{description}</p>
             </motion.div>
           ))}
