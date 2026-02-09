@@ -1,5 +1,6 @@
 import { Check, MessageCircle, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 interface PlansSectionProps {
   buildWhatsappUrl: (planName: string) => string;
@@ -48,27 +49,50 @@ const PlansSection = ({ buildWhatsappUrl }: PlansSectionProps) => {
   return (
     <section className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-6 max-w-6xl">
-        <h2 className="text-3xl md:text-4xl font-heading text-foreground text-center mb-4">
+        <motion.h2
+          className="text-3xl md:text-4xl font-heading text-foreground text-center mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           Planos <span className="text-gold">Mensais</span>
-        </h2>
-        <p className="text-muted-foreground font-body text-lg text-center max-w-2xl mx-auto mb-6">
+        </motion.h2>
+        <motion.p
+          className="text-muted-foreground font-body text-lg text-center max-w-2xl mx-auto mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
           O Bacelar Advocacia e Consultoria oferece planos mensais de assessoria jurídica que se adequam 
           às necessidades legais da sua empresa, em qualquer estágio.
-        </p>
-        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground font-body mb-14">
+        </motion.p>
+        <motion.div
+          className="flex items-center justify-center gap-2 text-sm text-muted-foreground font-body mb-14"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           <CreditCard className="w-4 h-4" />
           <span>Pagamento recorrente via cartão de crédito • Áreas: Cível, Trabalhista e Relações de Consumo</span>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {plans.map((plan) => (
-            <div
+          {plans.map((plan, i) => (
+            <motion.div
               key={plan.name}
               className={`rounded-xl border p-6 flex flex-col ${
                 plan.featured
                   ? "border-gold bg-card shadow-gold"
                   : "border-border bg-card"
               }`}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
               {plan.featured && (
                 <span className="text-xs font-body font-semibold text-gold uppercase tracking-wider mb-2">
@@ -100,7 +124,7 @@ const PlansSection = ({ buildWhatsappUrl }: PlansSectionProps) => {
                   Quero este plano
                 </a>
               </Button>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
