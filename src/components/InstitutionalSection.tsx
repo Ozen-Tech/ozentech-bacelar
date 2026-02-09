@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const highlights = [
   { icon: MapPin, text: "Sede em São Luís/MA" },
   { icon: Globe, text: "Atuação em todo o território nacional" },
-  { icon: Award, text: "Mais de 15 anos de atuação" },
+  { icon: Award, text: "Ética, independência e excelência técnica" },
 ];
 
 const InstitutionalSection = () => {
@@ -18,19 +18,29 @@ const InstitutionalSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
-          Advocacia de <span className="text-gold">Excelência</span>
+          Mais do que resolver problemas, ajudamos sua empresa a{" "}
+          <span className="text-gold">evitá-los</span>
         </motion.h2>
-        <motion.p
-          className="text-muted-foreground font-body text-lg leading-relaxed text-center max-w-3xl mx-auto mb-12"
+        <motion.div
+          className="text-muted-foreground font-body text-lg leading-relaxed text-center max-w-3xl mx-auto mb-12 space-y-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.15 }}
         >
-          Com aproximadamente 15 anos de atuação, sempre pautado pela técnica, independência, 
-          ética profissional e respeito à ordem jurídica do país, o Bacelar Advocacia e Consultoria 
-          oferece advocacia de excelência, com foco na advocacia empresarial.
-        </motion.p>
+          <p>
+            O Bacelar Advocacia e Consultoria atua com foco na advocacia empresarial preventiva, 
+            auxiliando empresários a tomarem decisões com segurança jurídica, clareza e respaldo técnico.
+          </p>
+          <p>
+            Nossa atuação é inspirada nos grandes escritórios do Brasil e do exterior, sempre pautada 
+            pela ética, independência profissional e excelência técnica.
+          </p>
+          <p>
+            Com sede em São Luís/MA e atuação em todo o território nacional, oferecemos suporte jurídico 
+            contínuo para empresas que entendem o jurídico como parte essencial da gestão.
+          </p>
+        </motion.div>
         <div className="grid md:grid-cols-3 gap-6">
           {highlights.map(({ icon: Icon, text }, i) => (
             <motion.div
@@ -49,15 +59,6 @@ const InstitutionalSection = () => {
             </motion.div>
           ))}
         </div>
-        <motion.p
-          className="text-muted-foreground font-body text-sm text-center mt-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          Reputação construída pela atuação nos tribunais e pela qualidade da consultoria jurídica.
-        </motion.p>
       </div>
     </section>
   );

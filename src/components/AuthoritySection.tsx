@@ -1,25 +1,6 @@
 import { Award, BookOpen, Briefcase, Medal, User } from "lucide-react";
 import { motion } from "framer-motion";
 
-const credentials = [
-  {
-    icon: BookOpen,
-    text: "Pós-Graduado e Especialista em Direito do Trabalho, Processo do Trabalho e Direito Previdenciário (UNISC)",
-  },
-  {
-    icon: Briefcase,
-    text: "Ex-membro da Comissão de Prerrogativas da OAB/MA (2012–2015)",
-  },
-  {
-    icon: Medal,
-    text: "Detentor da Medalha Cruz de Malta – Grau Honra ao Mérito (Latin American Quality Institute)",
-  },
-  {
-    icon: Award,
-    text: "Mais de 15 anos de atuação com foco em advocacia empresarial",
-  },
-];
-
 const AuthoritySection = () => {
   return (
     <section className="py-20 md:py-28 bg-navy-gradient">
@@ -52,28 +33,25 @@ const AuthoritySection = () => {
             <p className="text-gold font-body text-sm font-semibold uppercase tracking-wider mb-2">
               Advogado Responsável
             </p>
-            <h2 className="text-3xl md:text-4xl font-heading text-primary-foreground mb-8">
+            <h2 className="text-3xl md:text-4xl font-heading text-primary-foreground mb-6">
               Dr. Antônio Bacelar
             </h2>
-            <ul className="space-y-5">
-              {credentials.map(({ icon: Icon, text }, i) => (
-                <motion.li
-                  key={text}
-                  className="flex gap-4"
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-                >
-                  <div className="w-10 h-10 rounded-lg bg-gold/10 flex items-center justify-center shrink-0">
-                    <Icon className="w-5 h-5 text-gold" />
-                  </div>
-                  <p className="text-primary-foreground/70 font-body text-sm leading-relaxed pt-2">
-                    {text}
-                  </p>
-                </motion.li>
-              ))}
-            </ul>
+            <div className="space-y-4 text-primary-foreground/70 font-body text-sm leading-relaxed">
+              <p>
+                Com aproximadamente 15 anos de atuação, o Dr. Antônio Bacelar é Pós-Graduado e 
+                Especialista em Direito do Trabalho, Processo do Trabalho e Direito Previdenciário 
+                pela UNISC.
+              </p>
+              <p>
+                Foi Membro da Comissão de Prerrogativas da OAB/MA (2012–2015) e recebeu diversas 
+                premiações e honrarias, entre elas a Medalha Cruz de Malta – Grau Honra ao Mérito, 
+                concedida pelo Latin American Quality Institute.
+              </p>
+              <p className="text-primary-foreground/90 font-medium">
+                Sua atuação é pautada pela ética, técnica e compromisso com a advocacia empresarial 
+                de excelência.
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>

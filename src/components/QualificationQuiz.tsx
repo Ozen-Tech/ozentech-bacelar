@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Scale } from "lucide-react";
 
@@ -110,7 +109,9 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
 
   const steps = [
     {
-      title: "Você possui empresa com CNPJ ativo?",
+      title: "Atendimento jurídico exclusivo para empresas",
+      subtitle: "Nossos planos de assessoria jurídica são destinados exclusivamente a empresas com CNPJ ativo. Preencha os dados abaixo para prosseguir.",
+      question: "Você possui empresa com CNPJ ativo?",
       content: (
         <RadioGroup
           value={data.temCnpj}
@@ -138,6 +139,8 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
     },
     {
       title: "Qual o tipo da sua empresa?",
+      subtitle: "Precisamos entender melhor o perfil da sua empresa para garantir um atendimento adequado.",
+      question: "Selecione o tipo",
       content: (
         <RadioGroup
           value={data.tipoEmpresa}
@@ -162,6 +165,8 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
     },
     {
       title: "Qual o nome da sua empresa?",
+      subtitle: "Informe o nome da empresa para personalizar seu atendimento.",
+      question: "",
       content: (
         <Input
           value={data.nomeEmpresa}
@@ -174,6 +179,8 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
     },
     {
       title: "Informe o CNPJ da empresa",
+      subtitle: "Campo obrigatório para validação.",
+      question: "",
       content: (
         <Input
           value={data.cnpj}
@@ -185,6 +192,8 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
     },
     {
       title: "Qual o seu WhatsApp para contato?",
+      subtitle: "Utilizaremos este número para entrar em contato com você.",
+      question: "",
       content: (
         <Input
           value={data.whatsapp}
@@ -217,7 +226,7 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
           {steps[step].title}
         </h2>
         <p className="text-primary-foreground/50 text-sm font-body mb-8">
-          Etapa {step + 1} de {steps.length}
+          {steps[step].subtitle}
         </p>
 
         <div className="mb-8">{steps[step].content}</div>
