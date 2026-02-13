@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -7,9 +7,11 @@ import { Scale } from "lucide-react";
 interface QuizData {
   temCnpj: string;
   tipoEmpresa: string;
+  tipoEmpresaOutro: string;
   nomeEmpresa: string;
   cnpj: string;
   whatsapp: string;
+  consent: boolean;
 }
 
 interface QualificationQuizProps {
@@ -23,9 +25,11 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
   const [data, setData] = useState<QuizData>({
     temCnpj: "",
     tipoEmpresa: "",
+    tipoEmpresaOutro: "",
     nomeEmpresa: "",
     cnpj: "",
     whatsapp: "",
+    consent: false,
   });
 
   const formatCnpj = (value: string) => {
@@ -44,14 +48,70 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
     return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
   };
 
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("lead_cnpj");
+      if (stored) {
+        const formatted = formatCnpj(stored);
+        setData((d) => ({ ...d, cnpj: formatted, temCnpj: "sim" }));
+      }
+    } catch (err) {
+      // ignore
+    }
+  }, []);
+
   const canProceed = () => {
     switch (step) {
       case 0: return data.temCnpj !== "";
-      case 1: return data.tipoEmpresa !== "";
+      case 1: return data.tipoEmpresa !== "" && (data.tipoEmpresa !== "Outro" || data.tipoEmpresaOutro.trim().length >= 2);
       case 2: return data.nomeEmpresa.trim().length >= 2;
       case 3: return data.cnpj.replace(/\D/g, "").length === 14;
-      case 4: return data.whatsapp.replace(/\D/g, "").length >= 10;
+      case 4: return data.whatsapp.replace(/\D/g, "").length >= 10 && data.consent === true;
       default: return false;
+    }
+  };
+
+  const validateCnpj = (cnpjRaw: string) => {
+    const cnpj = cnpjRaw.replace(/\D/g, "");
+    if (cnpj.length !== 14) return false;
+    // invalid known sequences
+    if (/^(\d)\1+$/.test(cnpj)) return false;
+
+    const calc = (t: number) => {
+      let sum = 0;
+      let pos = t - 7;
+      for (let i = t; i >= 1; i--) {
+        sum += Number(cnpj[t - i]) * pos--;
+        if (pos < 2) pos = 9;
+      }
+      const res = sum % 11;
+      return res < 2 ? 0 : 11 - res;
+    };
+
+    const dv1 = calc(12);
+    const dv2 = calc(13);
+    return dv1 === Number(cnpj[12]) && dv2 === Number(cnpj[13]);
+  };
+
+  const saveLead = async () => {
+    const payload = {
+      nome: data.nomeEmpresa,
+      cnpj: data.cnpj.replace(/\D/g, ""),
+      whatsapp: data.whatsapp.replace(/\D/g, ""),
+      consent: data.consent,
+    };
+
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Failed to save lead");
+      // remember cnpj locally
+      localStorage.setItem("lead_cnpj", payload.cnpj);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -61,8 +121,16 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
       return;
     }
     if (step === 4) {
+      // final validation
+      const isCnpjValid = validateCnpj(data.cnpj);
+      if (!isCnpjValid) {
+        alert("CNPJ inválido. Verifique e tente novamente.");
+        return;
+      }
       setTransitioning(true);
-      setTimeout(() => onComplete(data), 3000);
+      saveLead().finally(() => {
+        setTimeout(() => onComplete(data), 800);
+      });
       return;
     }
     setStep(step + 1);
@@ -146,25 +214,36 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
       subtitle: "Precisamos entender melhor o perfil da sua empresa para garantir um atendimento adequado.",
       question: "Selecione o tipo",
       content: (
-        <RadioGroup
-          value={data.tipoEmpresa}
-          onValueChange={(val) => setData({ ...data, tipoEmpresa: val })}
-          className="grid grid-cols-2 gap-3"
-        >
-          {["MEI", "ME", "LTDA", "Outro"].map((opt) => (
-            <label
-              key={opt}
-              className={`flex items-center justify-center gap-2 p-4 rounded-xl border cursor-pointer transition-all duration-200 text-center ${
-                data.tipoEmpresa === opt
-                  ? "border-gold/50 bg-gold/[0.08]"
-                  : "border-primary-foreground/10 hover:border-primary-foreground/20"
-              }`}
-            >
-              <RadioGroupItem value={opt} className="sr-only" />
-              <span className="text-primary-foreground font-body text-sm sm:text-base font-medium">{opt}</span>
-            </label>
-          ))}
-        </RadioGroup>
+        <div className="space-y-4">
+          <RadioGroup
+            value={data.tipoEmpresa}
+            onValueChange={(val) => setData({ ...data, tipoEmpresa: val, tipoEmpresaOutro: val === "Outro" ? data.tipoEmpresaOutro : "" })}
+            className="grid grid-cols-2 gap-3"
+          >
+            {["MEI", "ME", "LTDA", "Outro"].map((opt) => (
+              <label
+                key={opt}
+                className={`flex items-center justify-center gap-2 p-4 rounded-xl border cursor-pointer transition-all duration-200 text-center ${
+                  data.tipoEmpresa === opt
+                    ? "border-gold/50 bg-gold/[0.08]"
+                    : "border-primary-foreground/10 hover:border-primary-foreground/20"
+                }`}
+              >
+                <RadioGroupItem value={opt} className="sr-only" />
+                <span className="text-primary-foreground font-body text-sm sm:text-base font-medium">{opt}</span>
+              </label>
+            ))}
+          </RadioGroup>
+          {data.tipoEmpresa === "Outro" && (
+            <Input
+              value={data.tipoEmpresaOutro}
+              onChange={(e) => setData({ ...data, tipoEmpresaOutro: e.target.value })}
+              placeholder="Especifique o tipo da empresa"
+              maxLength={50}
+              className="bg-transparent border-primary-foreground/15 text-primary-foreground placeholder:text-primary-foreground/30 focus:border-gold/50 h-12 sm:h-14 rounded-xl text-sm sm:text-base animate-fade-in"
+            />
+          )}
+        </div>
       ),
     },
     {
@@ -199,12 +278,25 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
       subtitle: "Utilizaremos este número para entrar em contato com você.",
       question: "",
       content: (
-        <Input
-          value={data.whatsapp}
-          onChange={(e) => setData({ ...data, whatsapp: formatWhatsapp(e.target.value) })}
-          placeholder="(00) 00000-0000"
-          className="bg-transparent border-primary-foreground/15 text-primary-foreground placeholder:text-primary-foreground/30 focus:border-gold/50 h-12 sm:h-14 font-mono rounded-xl text-sm sm:text-base"
-        />
+        <>
+          <Input
+            value={data.whatsapp}
+            onChange={(e) => setData({ ...data, whatsapp: formatWhatsapp(e.target.value) })}
+            placeholder="(00) 00000-0000"
+            className="bg-transparent border-primary-foreground/15 text-primary-foreground placeholder:text-primary-foreground/30 focus:border-gold/50 h-12 sm:h-14 font-mono rounded-xl text-sm sm:text-base"
+          />
+          <label className="mt-3 inline-flex items-start gap-3">
+            <input
+              type="checkbox"
+              checked={data.consent}
+              onChange={(e) => setData({ ...data, consent: e.target.checked })}
+              className="w-4 h-4 mt-1"
+            />
+            <span className="text-primary-foreground/65 text-sm">
+              Concordo em receber comunicações institucionais e materiais relacionados aos serviços (LGPD).
+            </span>
+          </label>
+        </>
       ),
     },
   ];

@@ -8,7 +8,7 @@ import AuthoritySection from "@/components/AuthoritySection";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 
-const WHATSAPP_NUMBER = "5598999999999"; // Replace with actual number
+const WHATSAPP_NUMBER = "5598981409802"; // +55 98 9 8140-9802
 
 const Index = () => {
   const [quizCompleted, setQuizCompleted] = useState(false);

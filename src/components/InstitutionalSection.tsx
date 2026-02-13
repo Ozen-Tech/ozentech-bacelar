@@ -1,4 +1,4 @@
-import { MapPin, Globe, Award } from "lucide-react";
+import { MapPin, Globe, Award, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 const highlights = [
@@ -6,6 +6,7 @@ const highlights = [
     icon: MapPin,
     title: "São Luís/MA",
     text: "Sede com estrutura completa para atendimento presencial",
+    link: "https://maps.app.goo.gl/w3vtEQZ5s26TZeQz8",
   },
   {
     icon: Globe,
@@ -58,7 +59,7 @@ const InstitutionalSection = () => {
           transition={{ duration: 0.7, delay: 0.15 }}
         >
           <p>
-            O <strong className="text-foreground font-medium">Bacelar Advocacia e Consultoria</strong> atua com foco na advocacia empresarial preventiva, 
+            O escritório <strong className="text-foreground font-medium">Bacelar Advocacia e Consultoria</strong> atua com foco na advocacia empresarial preventiva e contenciosa, 
             auxiliando empresários a tomarem decisões com segurança jurídica, clareza e respaldo técnico.
           </p>
           <p className="text-muted-foreground/80">
@@ -67,29 +68,60 @@ const InstitutionalSection = () => {
           </p>
           <p className="text-muted-foreground/80">
             Com sede em São Luís/MA e atuação em todo o território nacional, oferecemos suporte jurídico 
-            contínuo para empresas que entendem o jurídico como parte essencial da gestão.
+            contínuo para empresários que entendem a assessoria jurídica como parte indispensável da gestão.
           </p>
         </motion.div>
 
         {/* Highlight cards */}
         <div className="grid sm:grid-cols-3 gap-5 sm:gap-6">
-          {highlights.map(({ icon: Icon, title, text }, i) => (
-            <motion.div
-              key={title}
-              className="flex flex-col items-center text-center p-6 sm:p-8 rounded-xl bg-card border border-border/60 shadow-elegant hover:shadow-elegant-lg hover:border-gold/20 transition-all duration-300"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -4, transition: { duration: 0.25 } }}
-            >
-              <div className="w-14 h-14 rounded-full bg-gold/[0.08] flex items-center justify-center mb-5">
-                <Icon className="w-6 h-6 text-gold" />
-              </div>
-              <h3 className="text-foreground font-heading text-base font-semibold mb-2">{title}</h3>
-              <p className="text-muted-foreground font-body text-sm leading-relaxed">{text}</p>
-            </motion.div>
-          ))}
+          {highlights.map(({ icon: Icon, title, text, link }, i) => {
+            const CardContent = (
+              <>
+                <div className="w-14 h-14 rounded-full bg-gold/[0.08] flex items-center justify-center mb-5">
+                  <Icon className="w-6 h-6 text-gold" />
+                </div>
+                <h3 className="text-foreground font-heading text-base font-semibold mb-2">{title}</h3>
+                <p className="text-muted-foreground font-body text-sm leading-relaxed">{text}</p>
+              </>
+            );
+
+            if (link) {
+              return (
+                <motion.a
+                  key={title}
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center text-center p-6 sm:p-8 rounded-xl bg-card border border-border/60 shadow-elegant hover:shadow-elegant-lg hover:border-gold/20 transition-all duration-300 cursor-pointer relative"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  whileHover={{ y: -4, transition: { duration: 0.25 } }}
+                >
+                  {CardContent}
+                  <div className="mt-3 flex items-center gap-1.5 text-gold text-xs font-medium opacity-80 hover:opacity-100 transition-opacity">
+                    <span>Ver no mapa</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </div>
+                </motion.a>
+              );
+            }
+
+            return (
+              <motion.div
+                key={title}
+                className="flex flex-col items-center text-center p-6 sm:p-8 rounded-xl bg-card border border-border/60 shadow-elegant hover:shadow-elegant-lg hover:border-gold/20 transition-all duration-300"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                whileHover={{ y: -4, transition: { duration: 0.25 } }}
+              >
+                {CardContent}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

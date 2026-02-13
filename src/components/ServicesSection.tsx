@@ -1,18 +1,24 @@
-import { FileText, Search, ShieldCheck } from "lucide-react";
+import { FileText, Search, ShieldCheck, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 
 const services = [
   {
-    icon: FileText,
-    title: "Elaboração e Revisão de Contratos",
+    icon: Shield,
+    title: "Blindagem Trabalhista",
     description:
-      "Procedimento técnico e minucioso na elaboração e revisão de contratos nas áreas Cível, Trabalhista e Relações de Consumo, visando segurança jurídica, equilíbrio contratual e estabilidade nas relações comerciais.",
+      "Proteção jurídica preventiva para empresas, minimizando riscos trabalhistas através de análise de processos, adequação de práticas e implementação de medidas que reduzem passivos e garantem conformidade com a legislação trabalhista.",
   },
   {
     icon: Search,
     title: "Levantamento Tributário",
     description:
       "Análise da realidade tributária da empresa para identificar riscos, inconsistências e orientar a adoção das medidas mais adequadas, evitando passivos que possam comprometer o negócio.",
+  },
+  {
+    icon: FileText,
+    title: "Elaboração de Contratos",
+    description:
+      "Procedimento técnico e minucioso na elaboração e revisão de contratos nas áreas Cível, Trabalhista e Relações de Consumo, visando segurança jurídica, equilíbrio contratual e estabilidade nas relações comerciais.",
   },
   {
     icon: ShieldCheck,
@@ -72,7 +78,7 @@ const ServicesSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
           {services.map(({ icon: Icon, title, description }, i) => (
             <motion.div
               key={title}

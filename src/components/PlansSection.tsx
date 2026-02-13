@@ -19,7 +19,7 @@ const plans = [
       "Consultorias jurídicas ilimitadas (presencial ou on-line)",
       "Análise jurídica de contratos",
     ],
-    cta: "Saber mais sobre este plano",
+    cta: "Fale conosco",
   },
   {
     name: "Platinum",
@@ -33,7 +33,7 @@ const plans = [
       "Todas as vantagens do Plano Gold",
       "Até 20 processos judiciais/ano (São Luís/MA)",
     ],
-    cta: "Falar sobre este plano",
+    cta: "Fale conosco",
   },
   {
     name: "Diamante",
@@ -49,7 +49,7 @@ const plans = [
       "Consultoria jurídico-tributária",
       "Workshop \"Empresa Legal\" (até 3h)",
     ],
-    cta: "Conversar com um advogado",
+    cta: "Fale conosco",
   },
   {
     name: "Grupo Empresarial",
@@ -65,7 +65,7 @@ const plans = [
       "Consultoria jurídico-tributária",
       "Workshop \"Empresa Legal\"",
     ],
-    cta: "Entender este plano",
+    cta: "Fale conosco",
   },
 ];
 
@@ -82,10 +82,10 @@ const PlansSection = ({ buildWhatsappUrl }: PlansSectionProps) => {
           transition={{ duration: 0.6 }}
         >
           <p className="text-gold font-body text-xs font-semibold uppercase tracking-[0.25em] mb-4">
-            Planos de assessoria
+            Acompanhamento jurídico
           </p>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading text-foreground leading-snug">
-            Planos <span className="text-gold italic">Mensais</span>
+            Acompanhamento Jurídico <span className="text-gold italic">Mensal</span>
           </h2>
         </motion.div>
 
@@ -105,8 +105,7 @@ const PlansSection = ({ buildWhatsappUrl }: PlansSectionProps) => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Planos estruturados para atender empresas em diferentes estágios, com acompanhamento 
-          jurídico contínuo, previsibilidade e tranquilidade na gestão.
+          Acompanhamento jurídico que abrange todas as áreas e assume as missões necessárias para proteger sua empresa: análise normativa, acompanhamento de jurisprudência, identificação de riscos trabalhistas e tributários, alertas e recomendações operacionais. Prefira conversar conosco para ajustarmos o serviço à sua realidade.
         </motion.p>
 
         <motion.div
@@ -152,7 +151,7 @@ const PlansSection = ({ buildWhatsappUrl }: PlansSectionProps) => {
 
               <div className="p-5 sm:p-6 flex flex-col flex-1">
                 <h3 className="text-lg sm:text-xl font-heading text-foreground mb-1 break-words">
-                  Plano {plan.name}
+                  {plan.name}
                 </h3>
                 <p className="text-[10px] sm:text-xs font-body text-gold font-semibold uppercase tracking-[0.15em] mb-4">
                   {plan.subtitle}
@@ -191,7 +190,10 @@ const PlansSection = ({ buildWhatsappUrl }: PlansSectionProps) => {
                     className="inline-flex items-center justify-center gap-2 w-full text-center"
                   >
                     <MessageCircle className="w-4 h-4 shrink-0" />
-                    <span className="text-xs sm:text-sm leading-tight">{plan.cta}</span>
+                    <span className="text-xs sm:text-sm leading-tight">
+                      <span className="hidden sm:inline">{plan.cta}</span>
+                      <span className="inline sm:hidden">WhatsApp</span>
+                    </span>
                   </a>
                 </Button>
               </div>
