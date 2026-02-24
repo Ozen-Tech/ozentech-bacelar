@@ -1,6 +1,7 @@
 import { MessageCircle, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Logo from "@/assets/logo bacelar adv.png";
 
 interface HeroSectionProps {
   whatsappUrl: string;
@@ -51,9 +52,7 @@ const HeroSection = ({ whatsappUrl }: HeroSectionProps) => {
           {/* Decorative line */}
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="w-8 h-px bg-gold/30" />
-            <p className="text-gold font-body text-xs sm:text-sm font-semibold uppercase tracking-[0.3em]">
-              Bacelar Advocacia e Consultoria
-            </p>
+            <img src={Logo} alt="Bacelar Advocacia e Consultoria" className="mx-auto w-36 sm:w-44 object-contain" />
             <div className="w-8 h-px bg-gold/30" />
           </div>
         </motion.div>

@@ -10,8 +10,11 @@ import Footer from "@/components/Footer";
 
 const WHATSAPP_NUMBER = "5598981409802"; // +55 98 9 8140-9802
 
+import UnderConstruction from "@/components/UnderConstruction";
+
 const Index = () => {
   const [quizCompleted, setQuizCompleted] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
   const [quizData, setQuizData] = useState<{
     nomeEmpresa: string;
     cnpj: string;
@@ -21,6 +24,7 @@ const Index = () => {
   const handleQuizComplete = useCallback((data: any) => {
     setQuizData(data);
     setQuizCompleted(true);
+    setShowQuiz(false);
   }, []);
 
   const buildWhatsappUrl = useCallback(
@@ -35,7 +39,15 @@ const Index = () => {
   );
 
   if (!quizCompleted) {
-    return <QualificationQuiz onComplete={handleQuizComplete} />;
+    if (showQuiz) {
+      return <QualificationQuiz onComplete={handleQuizComplete} />;
+    }
+    return (
+      <UnderConstruction
+        whatsappUrl={buildWhatsappUrl()}
+        onPreview={() => setShowQuiz(true)}
+      />
+    );
   }
 
   return (

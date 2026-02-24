@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Scale } from "lucide-react";
+import Logo from "@/assets/logo bacelar adv.png";
 
 interface QuizData {
   temCnpj: string;
@@ -138,19 +138,21 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
 
   if (rejected) {
     return (
-      <div className="fixed inset-0 bg-navy-gradient flex items-center justify-center p-6 sm:p-8 z-50">
+      <div className="fixed inset-0 bg-navy-gradient flex items-center justify-center p-4 sm:p-6 z-50">
         <div className="max-w-md text-center animate-fade-in">
-          <div className="w-16 h-16 rounded-full bg-gold/[0.08] flex items-center justify-center mx-auto mb-8">
-            <Scale className="w-8 h-8 text-gold" />
-          </div>
-          <h2 className="text-xl sm:text-2xl font-heading text-primary-foreground mb-5">
+          <img
+            src={Logo}
+            alt="Bacelar Advocacia e Consultoria"
+            className="w-40 h-40 sm:w-48 sm:h-48 object-contain mx-auto mb-4"
+          />
+          <h2 className="text-xl sm:text-2xl font-heading text-primary-foreground mb-4">
             Atendimento Exclusivo para Empresas
           </h2>
-          <p className="text-primary-foreground/60 font-body text-sm sm:text-base leading-[1.8]">
+          <p className="text-primary-foreground/60 font-body text-sm sm:text-base leading-[1.6]">
             O Bacelar Advocacia e Consultoria é especializado em assessoria jurídica empresarial. 
             Nossos serviços são destinados exclusivamente a empresas com CNPJ ativo.
           </p>
-          <p className="text-primary-foreground/35 font-body mt-6 text-xs sm:text-sm">
+          <p className="text-primary-foreground/35 font-body mt-4 text-xs sm:text-sm">
             Agradecemos o seu interesse e desejamos sucesso em sua jornada.
           </p>
         </div>
@@ -160,18 +162,20 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
 
   if (transitioning) {
     return (
-      <div className="fixed inset-0 bg-navy-gradient flex items-center justify-center p-6 sm:p-8 z-50">
+      <div className="fixed inset-0 bg-navy-gradient flex items-center justify-center p-4 sm:p-6 z-50">
         <div className="max-w-lg text-center animate-fade-in">
-          <div className="w-16 h-16 rounded-full bg-gold/[0.08] flex items-center justify-center mx-auto mb-8">
-            <Scale className="w-8 h-8 text-gold" />
-          </div>
-          <h2 className="text-xl sm:text-2xl font-heading text-primary-foreground mb-5">
+          <img
+            src={Logo}
+            alt="Bacelar Advocacia e Consultoria"
+            className="w-40 h-40 sm:w-48 sm:h-48 object-contain mx-auto mb-4"
+          />
+          <h2 className="text-xl sm:text-2xl font-heading text-primary-foreground mb-4">
             Obrigado, {data.nomeEmpresa}.
           </h2>
-          <p className="text-primary-foreground/60 font-body text-sm sm:text-base leading-[1.8]">
+          <p className="text-primary-foreground/60 font-body text-sm sm:text-base leading-[1.6]">
             Com base nas informações fornecidas, você pode acessar os planos jurídicos empresariais.
           </p>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-6 flex justify-center">
             <div className="w-8 h-8 border-2 border-gold/60 border-t-transparent rounded-full animate-spin" />
           </div>
         </div>
@@ -302,10 +306,10 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
   ];
 
   return (
-    <div className="fixed inset-0 bg-navy-gradient flex items-center justify-center p-5 sm:p-8 z-50">
+    <div className="fixed inset-0 bg-navy-gradient flex items-center justify-center p-3 sm:p-5 z-50">
       <div className="w-full max-w-md animate-fade-in">
         {/* Progress bar */}
-        <div className="flex gap-2 mb-12">
+        <div className="flex gap-2 mb-6">
           {steps.map((_, i) => (
             <div
               key={i}
@@ -317,18 +321,19 @@ const QualificationQuiz = ({ onComplete }: QualificationQuizProps) => {
         </div>
 
         {/* Icon */}
-        <div className="w-12 h-12 rounded-full bg-gold/[0.08] flex items-center justify-center mb-8">
-          <Scale className="w-6 h-6 text-gold" />
-        </div>
+        <img
+          src={Logo}
+          alt="Bacelar Advocacia e Consultoria"
+          className="w-40 h-40 sm:w-48 sm:h-48 object-contain mx-auto mb-4"
+        />
 
-        <h2 className="text-xl sm:text-2xl font-heading text-primary-foreground mb-3 leading-snug">
+        <h2 className="text-xl sm:text-2xl font-heading text-primary-foreground mb-1 leading-snug">
           {steps[step].title}
         </h2>
-        <p className="text-primary-foreground/40 text-xs sm:text-sm font-body mb-8 leading-relaxed">
+        <p className="text-primary-foreground/40 text-xs sm:text-sm font-body mb-3 leading-relaxed">
           {steps[step].subtitle}
         </p>
-
-        <div className="mb-10">{steps[step].content}</div>
+        <div className="mb-6">{steps[step].content}</div>
 
         {/* Buttons */}
         <div className="flex flex-col-reverse sm:flex-row gap-3 w-full">
