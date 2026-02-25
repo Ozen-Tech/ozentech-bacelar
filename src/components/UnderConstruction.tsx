@@ -64,7 +64,7 @@ const UnderConstruction = ({ onPreview }: Props) => {
             className="w-full sm:w-auto"
             aria-label="Acessar prévia da landing"
           >
-            <Button variant="outline" className="w-60 sm:w-48">Ver prévia (landing)</Button>
+            <Button variant="outline" className="w-72 sm:w-64">Clique aqui e acesse a nossa landing page</Button>
           </button>
         </div>
       </div>
